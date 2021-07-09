@@ -2,6 +2,7 @@
 const e = require('express');
 const express = require('express');
 
+const Post = require('./posts-model');
 const router = express.Router();
 
  
@@ -22,6 +23,7 @@ router.get('/', (req,res) => {
 router.get('/:id', async (req,res) => {
     try{
         const post =  await Post.findById(req.params.id)
+        const messageOfTheDay = process.env.MOTD || 'Hello World!'
         if (!post) {
             res.status(404).json({ 
                 message: "The post with the specified ID does not exist",
